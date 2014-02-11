@@ -7,39 +7,7 @@ module AngularRailsTemplates
       'application/javascript'
     end
 
-    def prepare; end
-
-    def evaluate(scope, locals, &block)
-      module_name           = configuration.module_name
-      logical_template_path = logical_template_path(scope)
-
-      <<-EOS
-window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(#{module_name.inspect}, []));
-
-window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
-  $templateCache.put(#{logical_template_path.inspect}, #{content.to_json});
-}]);
-      EOS
-    end
-
-    private
-
-    def content
-      ext = File.extname(file)
-
-      return Slim::Template.new(file).render if slim?(ext)
-      return Haml::Engine.new(file).render if haml?(ext)
-
-      data
-    end
-
-    def slim?(ext)
-      ext =~ /ast/
-    end
-
-    def haml?(ext)
-      ext =~ /aht/
-    end
+    protected
 
     def logical_template_path(scope)
       path = scope.logical_path
@@ -47,8 +15,24 @@ window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
       "#{path}.html"
     end
 
+    def module_name
+      configuration.module_name.inspect
+    end
+
     def configuration
       ::Rails.configuration.angular_templates
+    end
+
+    def script_template(arguments)
+      script_template = <<-EOS
+window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(%s, []));
+
+window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
+  $templateCache.put(%s, %s);
+}]);
+      EOS
+
+      sprintf(script_template, *arguments)
     end
   end
 end
