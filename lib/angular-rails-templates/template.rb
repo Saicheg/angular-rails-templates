@@ -25,11 +25,20 @@ window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
     private
 
     def content
-      case File.extname(file)
-      when /ast/ then Slim::Template.new(file).render
-      when /aht/ then Haml::Engine.new(file).render
-      else data
-      end
+      ext = File.extname(file)
+
+      return Slim::Template.new(file).render if slim?(ext)
+      return Haml::Engine.new(file).render if haml?(ext)
+
+      data
+    end
+
+    def slim?(ext)
+      ext =~ /ast/
+    end
+
+    def haml?(ext)
+      ext =~ /aht/
     end
 
     def logical_template_path(scope)
