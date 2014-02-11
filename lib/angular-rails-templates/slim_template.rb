@@ -10,7 +10,7 @@ module AngularRailsTemplates
 
     def evaluate(scope, locals, &block)
       logical_template_path = logical_template_path(scope)
-      script_template(logical_template_path.inspect, @engine.render)
+      script_template(logical_template_path, @engine.render)
     end
   end
 end

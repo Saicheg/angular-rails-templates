@@ -27,15 +27,13 @@ module AngularRailsTemplates
     end
 
     def script_template(path, data)
-      script_template = <<-EOS
-window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(%s, []));
+      %Q{
+window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(#{module_name}, []));
 
 window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
-  $templateCache.put(%s, "%s");
+  $templateCache.put(#{path.inspect}, "#{escape_javascript(data)}");
 }]);
-      EOS
-
-      sprintf(script_template, module_name, path, escape_javascript(data))
+      }
     end
 
   end
