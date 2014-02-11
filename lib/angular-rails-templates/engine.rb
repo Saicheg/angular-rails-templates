@@ -11,6 +11,7 @@ module AngularRailsTemplates
         Sprockets.register_engine '.ajs',  AngularRailsTemplates::Template
         Sprockets.register_engine '.html', AngularRailsTemplates::Template
         Sprockets.register_engine '.ast',  AngularRailsTemplates::Template
+        Sprockets.register_engine '.aht',  AngularRailsTemplates::Template
       end
     end
   end
