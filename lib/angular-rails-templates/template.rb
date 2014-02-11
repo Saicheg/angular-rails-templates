@@ -44,8 +44,7 @@ window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
     def logical_template_path(scope)
       path = scope.logical_path
       path.gsub!(Regexp.new("^#{configuration.ignore_prefix}"), "")
-      ext = basename.split(".")[1]
-      "#{path}.#{ext}"
+      "#{path}.html"
     end
 
     def configuration
