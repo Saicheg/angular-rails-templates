@@ -5,7 +5,7 @@ module AngularRailsTemplates
     end
 
     def prepare
-      @engine = Haml::Engine.new(file)
+      @engine = Haml::Engine.new(data)
     end
 
     def evaluate(scope, locals, &block)
