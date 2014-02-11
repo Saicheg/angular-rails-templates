@@ -31,7 +31,7 @@ module AngularRailsTemplates
 window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(%s, []));
 
 window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
-  $templateCache.put(%s, %s);
+  $templateCache.put(%s, "%s");
 }]);
       EOS
 
