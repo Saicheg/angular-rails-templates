@@ -23,7 +23,7 @@ module AngularRailsTemplates
       ::Rails.configuration.angular_templates
     end
 
-    def script_template(arguments)
+    def script_template(*arguments)
       script_template = <<-EOS
 window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(%s, []));
 
