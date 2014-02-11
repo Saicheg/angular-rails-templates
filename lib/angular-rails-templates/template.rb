@@ -27,7 +27,7 @@ window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
     def content
       case File.extname(file)
       when /ast/ then Slim::Template.new(file).render
-      when /aht/ then Haml::Template.new(file).render
+      when /aht/ then Haml::Engine.new(file).render
       else data
       end
     end
