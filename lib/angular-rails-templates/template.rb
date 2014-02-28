@@ -3,8 +3,6 @@ require 'sprockets/engines'
 
 module AngularRailsTemplates
   class Template < Tilt::Template
-    include ActionView::Helpers::JavaScriptHelper
-
     def self.default_mime_type
       'application/javascript'
     end
