@@ -1,17 +1,18 @@
 module AngularRailsTemplates
-  class SlimTemplate < Template
-    def initialize_engine
-      require_template_library 'slim'
-    end
 
-    def prepare
+  class SlimTemplate < SimpleDelegator
+    attr_reader :engine
+
+    def initialize(context, file)
       @engine = Slim::Template.new(file)
+      super(context)
     end
 
-    def evaluate(scope, locals, &block)
-      logical_template_path = logical_template_path(scope)
-      script_template(logical_template_path, @engine.render)
+    def render
+      require_template_library 'slim'
+      @engine.render
     end
   end
+
 end
 

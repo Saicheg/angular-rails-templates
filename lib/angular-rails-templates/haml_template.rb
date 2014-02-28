@@ -1,17 +1,18 @@
 module AngularRailsTemplates
-  class HamlTemplate < Template
-    def initialize_engine
-      require_template_library 'haml'
-    end
 
-    def prepare
+  class HamlTemplate < SimpleDelegator
+    attr_reader :engine
+
+    def initialize(context, data)
       @engine = Haml::Engine.new(data)
+      super(context)
     end
 
-    def evaluate(scope, locals, &block)
-      logical_template_path = logical_template_path(scope)
-      script_template(logical_template_path, @engine.render)
+    def render
+      require_template_library 'haml'
+      @engine.render
     end
   end
+
 end
 

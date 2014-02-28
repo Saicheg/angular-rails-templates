@@ -9,6 +9,20 @@ module AngularRailsTemplates
       'application/javascript'
     end
 
+    def prepare
+      @engine = case File.extname(file)
+                when '.haml' then HamlTemplate.new(self, data)
+                when '.slim' then SlimTemplate.new(self, file)
+                else
+                  DefaultTemplate.new(data)
+                end
+    end
+
+    def evaluate(scope, locals, &block)
+      path = logical_template_path(scope)
+      script_template(path, @engine.render)
+    end
+
     protected
 
     def logical_template_path(scope)
