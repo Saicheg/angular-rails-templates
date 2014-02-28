@@ -9,8 +9,8 @@ module AngularRailsTemplates
 
     def prepare
       @engine = case File.extname(file)
-                when '.haml' then HamlTemplate.new(self, data)
-                when '.slim' then SlimTemplate.new(self, file)
+                when '.aht' then HamlTemplate.new(self, data)
+                when '.ast' then SlimTemplate.new(self, file)
                 else
                   DefaultTemplate.new(data)
                 end
