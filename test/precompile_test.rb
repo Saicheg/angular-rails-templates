@@ -23,6 +23,7 @@ class PrecompileTest < TestCase
     end
 
     appjs = Dir["#{app_path}/public/assets/application*.js"].first
+
     assert !appjs.nil?, "the file #{app_path}/public/assets/application.js should exist"
     contents = File.read(appjs)
 
@@ -36,6 +37,7 @@ class PrecompileTest < TestCase
     assert_match /\.put\("haml_template\.html",/, contents
     assert_match /\.put\("subfolder\/slim_template\.html",/, contents
     assert_match /\.put\("subfolder\/haml_template\.html",/, contents
+
     # Check that we render slim templates
     unescaped = contents.gsub(/\\u([\da-fA-F]{4})/) {|m| [$1].pack("H*").unpack("n*").pack("U*")}
     assert_match /<h1>I am ast template<\/h1>/, unescaped

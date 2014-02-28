@@ -1,6 +1,5 @@
 require 'sprockets'
 require 'sprockets/engines'
-require 'action_view/helpers/javascript_helper'
 
 module AngularRailsTemplates
   class Template < Tilt::Template
@@ -31,7 +30,7 @@ module AngularRailsTemplates
 window.AngularRailsTemplates || (window.AngularRailsTemplates = angular.module(#{module_name}, []));
 
 window.AngularRailsTemplates.run(["$templateCache",function($templateCache) {
-  $templateCache.put(#{path.inspect}, "#{escape_javascript(data)}");
+  $templateCache.put(#{path.inspect}, #{data.to_json});
 }]);
       }
     end
